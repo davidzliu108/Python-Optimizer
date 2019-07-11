@@ -3,33 +3,76 @@
   <head>
     <title>pythonOptimizer.html</title>
     <meta charset = "UTF-8" />
+
+    <style>
+    form li {
+      list-style: none outside none;
+      }
+      input {
+        margin-left: 10px;
+      }
+    </style>
+
+
   </head>
   <body>
+
     <h1>Python Optimizer</h1>
     
-      <fieldset>
-          <legend>Input</legend>
-            <form action="/action_page.php">
-                <textarea name="message" rows="10" cols="120">
-                </textarea>
+
+      <div style= "float:left;">
+          <span>Input</span>
+            <form name =form1 method= post action="/action_page.php">
+              <ul>
+              <li><textarea id="oldcode" rows="10" cols="60">
+                </textarea></li>
                 <br>
-                
+              </div>
+            </ul>
               </form>
-      </fieldset>
-      <fieldset>
-          <legend>Output</legend>
-          <form action="/action_page.php">
-            <textarea name="message" rows="10" cols="120">
-            </textarea>
+              
+
+        <div style="float:left;">
+          <span>Output</span>
+          <form name=form2 method= post action="/action_page.php">
+            <ul>
+            <li><textarea id="newcode" rows="10" cols="60"> 
+            </textarea></li> 
             <br>
-            
+          </div>
+        </ul>
           </form>
-      </fieldset>
-
     
+        <div style="clear:both;">&nbsp;
+        <input id ="copy" type="button" value="Transform" onclick= "whatStart()">
+        <p id= "demo"></p>
+      </div>
 
-    <input type="button" value="Transform">
 
+      <div style="clear:both;">&nbsp;
     <input type="button" value="Test">
+      </div>
+
+
+      <script src="http://code.jquery.com/jquery-1.10.1.js"></script>
+      <script type="text/javascript">
+      $(document).ready(function() {
+        $('#copy').click(function() {
+            $('#newcode').val($('#oldcode').val() );
+            console.log($('#oldcode').val().split('\n'))
+        });
+      });
+
+      function whatStart() {
+
+        var str = "import a lol";
+        var n = str.startsWith("import");
+
+      }
+
+      </script>
+
+
   </body>
 </html>
+
