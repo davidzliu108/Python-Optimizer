@@ -24,8 +24,7 @@
           <span>Input</span>
             <form name =form1 method= post action="/action_page.php">
               <ul>
-              <li><textarea id="oldcode" rows="10" cols="60">
-                </textarea></li>
+              <li><textarea id="oldcode" rows="10" cols="60"></textarea></li>
                 <br>
               </div>
             </ul>
@@ -36,15 +35,14 @@
           <span>Output</span>
           <form name=form2 method= post action="/action_page.php">
             <ul>
-            <li><textarea id="newcode" rows="10" cols="60"> 
-            </textarea></li> 
+            <li><textarea id="newcode" rows="10" cols="60"></textarea></li> 
             <br>
           </div>
         </ul>
           </form>
     
         <div style="clear:both;">&nbsp;
-        <input id ="copy" type="button" value="Transform" onclick= "whatStart()">
+        <input id ="copy" type="button" value="Transform">
         <p id= "demo"></p>
       </div>
 
@@ -56,23 +54,30 @@
 
       <script src="http://code.jquery.com/jquery-1.10.1.js"></script>
       <script type="text/javascript">
-      $(document).ready(function() {
-        $('#copy').click(function() {
-            $('#newcode').val($('#oldcode').val() );
-            console.log($('#oldcode').val().split('\n'))
-        });
-      });
 
-      function whatStart() {
-
-        var str = "import a lol";
-        var n = str.startsWith("import");
-
+      function transform(str) {
+        lines = str.split('\n')
+        insert_point = -1
+        for (var i=0; i<lines.length; i++) {
+          line = lines[i]
+          if (line.startsWith('import')) continue
+          if (line == "") continue
+          insert_point = i
+          break
+        }
+        lines.splice(insert_point, 0, 'import optimizer')
+        return lines.join('\n')
       }
 
+      $(document).ready(function() {
+        $('#copy').click(function() {
+            $('#newcode').val(transform($('#oldcode').val()))
+        });
+      });
+      
       </script>
 
 
   </body>
-</html>
+</html> 
 
