@@ -1,0 +1,28 @@
+#getting base image ubuntu
+FROM ubuntu
+
+MAINTAINER pal <davidzliu@gmail.com>
+
+RUN apt update
+RUN apt-get -y install nginx git
+RUN mkdir -p /home/david/www
+WORKDIR /home/david/www
+RUN git clone https://github.com/davidzliu108/Python-Optimizer
+RUN mv "Python-Optimizer/Python Optimizer 1.html" index.html
+RUN touch  /home/david/www/index.html
+#welcome to test.davidliu.com this is the dummy index page.
+#RUN chmod 0755 ~/www
+RUN cp /etc/nginx/nginx.conf /etc/nginx/OLD.nginx.conf
+WORKDIR /etc/nginx/sites-available
+RUN echo "server{"  > test.davidliu.com
+RUN echo "	listen 80;" >> test.davidliu.com
+# RUN echo "	server_name test.davidliu.com;" >> test.davidliu.com
+RUN echo "	root /home/david/www;" >> test.davidliu.com
+RUN echo "	index index.html;}" >> test.davidliu.com
+RUN mv test.davidliu.com default
+#server {
+#        listen 80;
+#        server_name test.davidliu.com;
+#        root /home/david/www;
+#        index index.html;}
+RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
